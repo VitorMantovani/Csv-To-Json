@@ -12,4 +12,14 @@ export class DirectoryChecker {
         if (!fs.existsSync(this.directoryPath)) throw new Error("Directory does not exists")
         return true
        }
+
+       isDirectoryWithFiles(): string[]{
+        const files = fs.readdirSync(this.directoryPath)
+        if (this.isDirectoryCreated()) {
+            if (files.length == 0) {
+                throw new Error("Directory is empty!")
+            }
+        }
+        return files;
+       }
 }

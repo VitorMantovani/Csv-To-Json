@@ -5,7 +5,7 @@ const fs = require("fs");
 
 export class FileConverter {
     
-    private outputPath = "src/json/";
+    private outputPath = "src/json";
 
     constructor(private devsArray: string[]) {
         this.devsArray = devsArray;
@@ -29,6 +29,6 @@ export class FileConverter {
 
     generateFile() {
         const json = this.generateObject();
-        fs.writeFileSync(`${this.outputPath}`, json)
+        fs.writeFileSync("exemplo.json", json)
     }
 }

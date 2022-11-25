@@ -1,3 +1,4 @@
+import { ContinueStatement } from "typescript";
 import { DirectoryChecker } from "./DirectoryChecker";
 
 const fs = require("fs");
@@ -5,6 +6,7 @@ const path = require("path");
 const BASE_PATH = "src/data";
 
 export class FileChecker {
+
     private directoryChecker: DirectoryChecker;
 
     constructor(checker: DirectoryChecker) {
@@ -21,7 +23,17 @@ export class FileChecker {
         return fileData;
     }
 
-    // getHeaders() {
-    //     const data = this.fileReader()
-    // }
+    getHeaders(index: number): string[] {
+        const content = this.fileReader(index).split("\n");
+        return content[0].split(",");
+    }
+
+    getHeadersContent(index: number): string[] {
+        const content = this.fileReader(index).split("\n");
+        const headersContent = new Array;
+        for (let i = 1; i < content.length - 1; i++) {
+            headersContent.push(content[i].split(","))
+        }
+        return headersContent;
+    }
 }

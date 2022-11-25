@@ -7,29 +7,34 @@ const BASE_PATH = "src/data";
 
 export class FileChecker {
 
-    private directoryChecker: DirectoryChecker;
+    private csvFiles: string[];
 
-    constructor(checker: DirectoryChecker) {
-        this.directoryChecker = checker;
+    constructor(files: string[]) {
+        this.csvFiles = files;
     }
 
-    fileReader(index: number): string {
-        const files = this.directoryChecker.isFilesCsv();
-        const fileRelativePath = path.resolve(BASE_PATH, files[index]);
-        const fileData = fs.readFileSync(fileRelativePath).toString()
-        if (fileData.length == 0) {
-            throw new Error("File is empty!")
+    fileReader(): string {
+        const files = this.csvFiles;
+        let fileData = ""
+        for (let i = 0; i < files.length; i++) {
+            const fileRelativePath = path.resolve(BASE_PATH, files[i]);
+            let data = fs.readFileSync(fileRelativePath).toString()
+            if (data.length == 0) {
+                throw new Error("File is empty!")
+            }
+            fileData = data
         }
         return fileData;
     }
 
-    getHeaders(index: number): string[] {
-        const content = this.fileReader(index).split("\n");
+
+    getHeaders(): string[] {
+        const content = this.fileReader().split("\n");
         return content[0].split(",");
     }
 
-    getHeadersContent(index: number): string[] {
-        const content = this.fileReader(index).split("\n");
+    getHeadersContent(): string[] {
+        const content = this.fileReader().split("\n");
         const headersContent = new Array;
         for (let i = 1; i < content.length - 1; i++) {
             headersContent.push(content[i].split(","))

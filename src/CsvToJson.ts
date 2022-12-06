@@ -1,25 +1,23 @@
 
-import { FileChecker } from "./FileContentChecker";
+import { FileContentChecker } from "./FileContentChecker";
 
 const fs = require("fs");
 
 export class CsvToJson {
     
-
-    constructor(private devsArray: string[][]) {
-        this.devsArray = devsArray;
+    constructor(private headers: string[], private content: string[][]) {
     }
 
     generateObject(): string {
-        let array = [];
-        for (let dev of this.devsArray) {
-            let devData: any = {}
-            devData["name"] = dev[0]
-            devData["stack"] = dev[1]
-            array.push(devData)
-        }
-        let json = JSON.stringify(array);
-        return json;
+        let arrayOfObjects = [];
+        for(let i in this.content) {
+            let object: any = {};
+            for (let j in this.headers) {
+                object[this.headers[j]] = this.content[i][j]
+            }
+            arrayOfObjects.push(object)
+        } 
+        return JSON.stringify(arrayOfObjects);
     }
 
     generateFile() {

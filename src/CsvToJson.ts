@@ -20,8 +20,8 @@ export class CsvToJson {
         return JSON.stringify(arrayOfObjects);
     }
 
-    generateFile() {
+    generateFile(jsonDirectoryPath: string, fileName: string) {
         const json = this.generateObject();
-        fs.writeFileSync("src/json/exemplo.json", json)
+        fs.writeFileSync(`${jsonDirectoryPath}/${fileName}.json`, json)
     }
 }

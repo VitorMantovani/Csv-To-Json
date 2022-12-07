@@ -1,36 +1,34 @@
-import { ContinueStatement } from "typescript";
-import { DirectoryHandler } from "./DirectoryHandler";
-
 const fs = require("fs");
 const path = require("path");
 const BASE_PATH = "src/data";
 
 export class FileContentChecker {
+  constructor(private csvFile: string) {}
 
-    constructor(private csvFile: string) {
+  fileReader(): string {
+    const fileRelativePath = path.resolve(BASE_PATH, this.csvFile);
+    let data = fs.readFileSync(fileRelativePath).toString();
+    const hasData = data.length > 0;
+    try {
+      if (!hasData) throw new Error("File is empty!");
+      return data;
+    } catch (error) {
+      throw error;
     }
+  }
 
+  getHeaders(): string[] {
+    const content = this.fileReader().split("\n");
+    return content[0].split(",");
+  }
 
-    fileReader(): string {
-        const fileRelativePath = path.resolve(BASE_PATH, this.csvFile);
-        let data = fs.readFileSync(fileRelativePath).toString();
-        const hasData = data.length > 0
-        if (!hasData) throw new Error("File is empty!")
-        return data;
-    }
-
-    getHeaders(): string[] {
-        const content = this.fileReader().split("\n");
-        return content[0].split(",");
-    }
-
-    getCsvContent(): Array<string[]> {
-        const content = this.fileReader().split("\n");
-        content.shift();
-        const csvContent: Array<string[]> = [];
-        content.forEach((row) => {
-            csvContent.push(row.split(","));
-        })
-        return csvContent;
-    }    
+  getCsvContent(): Array<string[]> {
+    const content = this.fileReader().split("\n");
+    content.shift();
+    const csvContent: Array<string[]> = [];
+    content.forEach((row) => {
+      csvContent.push(row.split(","));
+    });
+    return csvContent;
+  }
 }

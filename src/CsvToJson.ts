@@ -3,25 +3,26 @@ import { FileContentChecker } from "./FileContentChecker";
 
 const fs = require("fs");
 
+type JsonObject = Record<string, unknown>
+
 export class CsvToJson {
     
     constructor(private headers: string[], private content: string[][]) {
     }
 
-    generateObject(): string {
-        let arrayOfObjects = [];
-        for(let i in this.content) {
-            let object: any = {};
-            for (let j in this.headers) {
-                object[this.headers[j]] = this.content[i][j]
-            }
-            arrayOfObjects.push(object)
-        } 
-        return JSON.stringify(arrayOfObjects);
+    generateJson(): string{
+        const json = this.content.reduce<JsonObject[]>((acc, row, idx) => {
+            const object = row.reduce<JsonObject>((acc, cur, idx) => {
+                acc[this.headers[idx]] = cur;
+                return acc;
+            }, {});
+            return [...acc, object];
+        }, []); 
+        return JSON.stringify(json)
     }
 
     generateFile(jsonDirectoryPath: string, fileName: string) {
-        const json = this.generateObject();
+        const json = this.generateJson();
         fs.writeFileSync(`${jsonDirectoryPath}/${fileName}.json`, json)
     }
 }

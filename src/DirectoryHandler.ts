@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
 export class DirectoryHandler {
   constructor(
@@ -7,7 +7,7 @@ export class DirectoryHandler {
     private jsonDirectoryPath: string
   ) {}
 
-  isDirectoryCreated(): boolean {
+  isDirectoryCreated(): boolean | void {
     const directoryExists = fs.existsSync(this.directoryPath);
     const createDirectory = () => fs.mkdirSync(this.directoryPath);
     return !directoryExists ? createDirectory() : true;

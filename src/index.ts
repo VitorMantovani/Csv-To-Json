@@ -1,9 +1,8 @@
 import { DirectoryHandler } from "./DirectoryHandler";
 import { FileContentChecker } from "./FileContentChecker";
 import { CsvToJson } from "./CsvToJson";
-
-const path = require("path");
-const fs = require("fs");
+import path from "path";
+import fs from "fs";
 
 const DIR_PATH = path.join(__dirname, "data");
 
@@ -13,12 +12,12 @@ const directoryHandler = new DirectoryHandler(DIR_PATH, jsonFolderPath);
 
 const files = directoryHandler.getCsvFiles();
 
-files.forEach((file) => {
+files.forEach((file: string) => {
     const fileContentChecker = new FileContentChecker(file);
     const headers = fileContentChecker.getHeaders();
     const content = fileContentChecker.getCsvContent();
     const csvToJson = new CsvToJson(headers, content);
-    csvToJson.generateObject();
-    directoryHandler.generateDirectory();
+    directoryHandler.generateJsonDirectory();
     csvToJson.generateFile(jsonFolderPath, path.basename(file, path.extname(file)));
-})
+});
+

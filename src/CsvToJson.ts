@@ -1,7 +1,7 @@
 
 import { FileContentChecker } from "./FileContentChecker";
 
-const fs = require("fs");
+import fs from "fs";
 
 type JsonObject = Record<string, unknown>
 
@@ -11,7 +11,7 @@ export class CsvToJson {
     }
 
     generateJson(): string{
-        const json = this.content.reduce<JsonObject[]>((acc, row, idx) => {
+        const json = this.content.reduce<JsonObject[]>((acc, row) => {
             const object = row.reduce<JsonObject>((acc, cur, idx) => {
                 acc[this.headers[idx]] = cur;
                 return acc;

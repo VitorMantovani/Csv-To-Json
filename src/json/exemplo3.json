@@ -1,0 +1,27 @@
+[
+  {
+    "Nome": "José",
+    "Stack": "FRONT",
+    "Idade": "22"
+  },
+  {
+    "Nome": "Maria",
+    "Stack": "BACK",
+    "Idade": "25"
+  },
+  {
+    "Nome": "Lucas",
+    "Stack": "FRONT",
+    "Idade": "19"
+  },
+  {
+    "Nome": "Silvia",
+    "Stack": "FRONT",
+    "Idade": "27"
+  },
+  {
+    "Nome": "Adriana",
+    "Stack": "BACK",
+    "Idade": "35"
+  }
+]

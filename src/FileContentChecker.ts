@@ -7,7 +7,7 @@ export class FileContentChecker {
 
   fileReader(): string {
     const fileRelativePath = path.resolve(BASE_PATH, this.csvFile);
-    let data = fs.readFileSync(fileRelativePath).toString();
+    let data = fs.readFileSync(fileRelativePath, 'utf8');
     const hasData = data.length > 0;
     try {
       if (!hasData) throw new Error("File is empty!");
@@ -26,7 +26,7 @@ export class FileContentChecker {
     const content = this.fileReader().split("\n");
     content.shift();
     const csvContent: Array<string[]> = [];
-    content.forEach((row) => {
+    content.filter(Boolean).forEach((row) => {
       csvContent.push(row.split(","));
     });
     return csvContent;

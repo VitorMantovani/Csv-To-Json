@@ -18,7 +18,7 @@ export class CsvToJson {
             }, {});
             return [...acc, object];
         }, []); 
-        return JSON.stringify(json)
+        return JSON.stringify(json, null, 2);
     }
 
     generateFile(jsonDirectoryPath: string, fileName: string) {

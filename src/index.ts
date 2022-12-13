@@ -6,9 +6,9 @@ import fs from "fs";
 
 const DIR_PATH = path.join(__dirname, "data");
 
-const jsonFolderPath = "/home/gcb/Área de Trabalho/Projetos Gcb/CsvToJson/src/json"
+const JSON_PATH = path.join(__dirname, "json");
 
-const directoryHandler = new DirectoryHandler(DIR_PATH, jsonFolderPath);
+const directoryHandler = new DirectoryHandler(DIR_PATH, JSON_PATH);
 
 const files = directoryHandler.getCsvFiles();
 
@@ -18,6 +18,6 @@ files.forEach((file: string) => {
     const content = fileContentChecker.getCsvContent();
     const csvToJson = new CsvToJson(headers, content);
     directoryHandler.generateJsonDirectory();
-    csvToJson.generateFile(jsonFolderPath, path.basename(file, path.extname(file)));
+    csvToJson.generateFile(JSON_PATH, path.basename(file, path.extname(file)));
 });
 

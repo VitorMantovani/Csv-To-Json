@@ -29,12 +29,10 @@ $ git clone https://github.com/VitorMantovani/CsvToJson.git
 $ cd CSV2JSON
 
 # Install dependencies
-$ yarn or npm init
+$ yarn
 
 # Run the project
-$ yarn start or npm start
-
-# The server will initialize in the <http://localhost:3000>
+$ yarn dev
 ```
 
 ## 🤝 Colaboradores
